@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+#define MAX_CONTAINERS 100
+#define CONTAINER_CAPACITY 10
+
+int main() {
+    int items[] = {2, 5, 7, 1, 3, 8, 4};
+    int numItems = sizeof(items) / sizeof(items[0]);
+
+    int containers[MAX_CONTAINERS] = {0};
+    int numContainers = 0;
+
+    for (int i = 0; i < numItems; i++) {
+        int itemAdded = 0;
+        
+        for (int j = 0; j < numContainers; j++) {
+            if (containers[j] + items[i] <= CONTAINER_CAPACITY) {
+                containers[j] += items[i];
+                itemAdded = 1;
+                break;
+            }
+        }
+        
+        if (!itemAdded) {
+            containers[numContainers] = items[i];
+            numContainers++;
+        }
+    }
+
+    printf("Number of containers used: %d\n", numContainers);
+    printf("Container contents:\n");
+    for (int i = 0; i < numContainers; i++) {
+        printf("Container %d: ", i + 1);
+        for (int j = 0; j < containers[i]; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
